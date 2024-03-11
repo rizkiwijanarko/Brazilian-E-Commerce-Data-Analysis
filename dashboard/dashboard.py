@@ -5,7 +5,6 @@ import streamlit as st
 from babel.numbers import format_currency
 import matplotlib.ticker as mtick
 import os
-
 sns.set(style='dark')
 
 
@@ -129,7 +128,7 @@ st.subheader('Persentase Tingkat Kepuasan Pelanggan Selama Berbelanja')
 # Plotting Pie Chart
 plt.figure(figsize=(15, 8))
 plt.pie(review_df['number_of_reviews'], labels=review_df['review_score'], autopct='%1.1f%%', startangle=140, colors=sns.color_palette('pastel', 5))
-plt.title('Distribusi Tingkat Kepuasan Pelanggan')
+plt.title('Distribusi Nilai Review Pelanggan')
 st.pyplot(fig=plt)
 
 # Penjualan Berdasarkan Kategori Produk
@@ -140,49 +139,53 @@ colors_ = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D
 
 # Jumlah Penjualan Paling Banyak
 sns.barplot(x='number_of_orders', y='product_category', data=sales_df.sort_values(by='number_of_orders', ascending=False).head(10), ax=ax[0], palette=colors_)
-ax[0].set_title('10 Kategori dengan Penjualan Paling Banyak', loc='center')
-ax[0].set_xlabel('Total Penjualan')
+ax[0].set_title('10 Kategori dengan Penjualan Paling Banyak', loc='center',fontsize=20)
+ax[0].set_xlabel('Total Penjualan', fontsize=20)
 ax[0].set_ylabel(None)
+ax[0].tick_params(axis='x', labelsize=15)
+ax[0].tick_params(axis='y', labelsize=20)
 
 # Jumlah Penjualan Paling Sedikit
 sns.barplot(x='number_of_orders', y='product_category', data=sales_df.sort_values(by='number_of_orders', ascending=True).head(10), ax=ax[1], palette=colors_)
-ax[1].set_title('10 Kategori Produk dengan Penjualan Paling Sedikit', loc='center')
-ax[1].set_xlabel('Total Penjualan')
+ax[1].set_title('10 Kategori Produk dengan Penjualan Paling Sedikit', loc='center', fontsize=20)
+ax[1].set_xlabel('Total Penjualan', fontsize=20)
 ax[1].set_ylabel(None)
+ax[1].tick_params(axis='x', labelsize=15)
+ax[1].tick_params(axis='y', labelsize=20)
 ax[1].invert_xaxis()
 ax[1].yaxis.set_label_position("right")
 ax[1].yaxis.tick_right()
-plt.suptitle("Penjualan Terbanyak dan Terendah Berdasarkan Kategori Produk")
+plt.suptitle("Penjualan Terbanyak dan Terendah Berdasarkan Kategori Produk", fontsize=30)
 st.pyplot(fig)
 
 # Total Revenue Berdasarkan Kategori Produk
 st.subheader('Total Revenue Berdasarkan Kategori Produk')
 # Plotting Bar Chart
-fig, ax = plt.subplots(1, 2, figsize=(45, 20))
+fig, ax = plt.subplots(1, 2, figsize=(20, 10))
 
 # Total Revenue Paling Banyak
 sns.barplot(x='total_revenue', y='product_category', data=revenue_df.sort_values(by='total_revenue', ascending=False).head(10), ax=ax[0], palette=colors_)
-ax[0].set_title('10 Kategori Produk dengan Total Revenue Paling Banyak', fontsize=25)
-ax[0].set_xlabel('Total Revenue')
+ax[0].set_title('10 Kategori Produk dengan Total Revenue Paling Banyak', fontsize=20)
+ax[0].set_xlabel('Total Revenue', fontsize=20)
 ax[0].set_ylabel('Kategori Produk')
 # Format sumbu-x ke skala normal
 fmt = '{x:,.0f}'
 tick = mtick.StrMethodFormatter(fmt)
 ax[0].xaxis.set_major_formatter(tick)
-ax[0].tick_params(axis='x', labelsize=20)
-ax[0].tick_params(axis='y', labelsize=30)
+ax[0].tick_params(axis='x', labelsize=12)
+ax[0].tick_params(axis='y', labelsize=20)
 
 # Total Revenue Paling Sedikit
 sns.barplot(x='total_revenue', y='product_category', data=revenue_df.sort_values(by='total_revenue', ascending=True).head(10), ax=ax[1], palette=colors_)
-ax[1].set_title('10 Kategori Produk dengan Total Revenue Paling Sedikit', fontsize=25)
-ax[1].set_xlabel('Total Penjualan')
+ax[1].set_title('10 Kategori Produk dengan Total Revenue Paling Sedikit', fontsize=20)
+ax[1].set_xlabel('Total Revenue', fontsize=20)
 ax[1].set_ylabel(None)
 ax[1].invert_xaxis()
 ax[1].yaxis.set_label_position("right")
 ax[1].yaxis.tick_right()
-ax[1].tick_params(axis='x', labelsize=20)
-ax[1].tick_params(axis='y', labelsize=30)
-plt.suptitle("Total Revenue Terbanyak dan Terendah Berdasarkan Kategori Produk", fontsize=35)
+ax[1].tick_params(axis='x', labelsize=15)
+ax[1].tick_params(axis='y', labelsize=20)
+plt.suptitle("Total Revenue Terbanyak dan Terendah Berdasarkan Kategori Produk", fontsize=30)
 st.pyplot(fig)
 
 # RFM Analysis
